@@ -84,6 +84,8 @@ func (S *Scanner) scanToken() {
 		} else {
 			S.AddToken(SLASH, nil)
 		}
+	case '"':
+		S.string()
 	case ' ':
 	case '\r':
 	case '\t':
@@ -92,6 +94,25 @@ func (S *Scanner) scanToken() {
 	default:
 		Error(S.line, "Unexpected character.")
 	}
+}
+
+func (S *Scanner) string() {
+	for S.peek() != '"' && S.isAtEnd() == false {
+		if S.peek() == '\n' {
+			S.line++
+		}
+		S.Advance()
+	}
+
+	if S.isAtEnd() {
+		Error(S.line, "Unterminated string")
+		return
+	}
+
+	S.Advance()
+
+	value := S.source[S.start+1 : S.current-1]
+	S.AddToken(STRING, value)
 }
 
 func (S *Scanner) match(expected byte) bool {
