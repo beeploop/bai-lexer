@@ -1,15 +1,7 @@
 package main
 
-import (
-	"os"
-)
+import "github.com/BeepLoop/dui-interpreter/lexer"
 
 func main() {
-	args := os.Args
-
-	if len(args) < 2 {
-		runPrompt()
-	} else {
-		runFile(args[1])
-	}
+	lexer.Lexer()
 }

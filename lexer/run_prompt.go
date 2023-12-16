@@ -1,4 +1,4 @@
-package main
+package lexer
 
 import (
 	"bufio"
@@ -22,12 +22,12 @@ func runPrompt() error {
 			break
 		}
 
-        err = run(line)
-        if err != nil {
-            return err
-        }
+		err = run(line)
+		if err != nil {
+			return err
+		}
 	}
 
 	fmt.Println("Thank you bye!")
-    return nil
+	return nil
 }
