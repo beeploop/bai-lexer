@@ -20,16 +20,16 @@ func CreateScanner(source string) *Scanner {
 }
 
 func (S *Scanner) ScanTokens() []Token {
-	for S.isAtEnd() == false {
+	for S.IsAtEnd() == false {
 		S.start = S.current
-		S.scanToken()
+		S.ScanToken()
 	}
 
 	S.tokens = append(S.tokens, *CreateToken(EOF, "", nil, S.line))
 	return S.tokens
 }
 
-func (S *Scanner) scanToken() {
+func (S *Scanner) ScanToken() {
 	c := S.Advance()
 
 	switch c {
@@ -54,85 +54,85 @@ func (S *Scanner) scanToken() {
 	case '*':
 		S.AddToken(STAR, nil)
 	case '!':
-		if S.match('=') {
+		if S.Match('=') {
 			S.AddToken(BANG_EQUAL, nil)
 		} else {
 			S.AddToken(BANG, nil)
 		}
 	case '=':
-		if S.match('=') {
+		if S.Match('=') {
 			S.AddToken(EQUAL_EQUAL, nil)
 		} else {
 			S.AddToken(EQUAL, nil)
 		}
 	case '<':
-		if S.match('=') {
+		if S.Match('=') {
 			S.AddToken(LESS_EQUAL, nil)
 		} else {
 			S.AddToken(LESS, nil)
 		}
 	case '>':
-		if S.match('=') {
+		if S.Match('=') {
 			S.AddToken(GREATER_EQUAL, nil)
 		} else {
 			S.AddToken(GREATER, nil)
 		}
 	case '/':
-		if S.match('/') {
+		if S.Match('/') {
 			// detect a comment
-			for S.peek() != '\n' && S.isAtEnd() == false {
+			for S.Peek() != '\n' && S.IsAtEnd() == false {
 				S.Advance()
 			}
 		} else {
 			S.AddToken(SLASH, nil)
 		}
 	case '"':
-		S.string()
+		S.String()
 	case ' ':
 	case '\r':
 	case '\t':
 	case '\n':
 		S.line++
 	default:
-		if S.isDigit(c) == true {
-			S.number()
+		if S.IsDigit(c) == true {
+			S.Number()
 		} else {
 			Error(S.line, "Unexpected character.")
 		}
 	}
 }
 
-func (S *Scanner) number() {
-	for S.isDigit(S.peek()) {
+func (S *Scanner) Number() {
+	for S.IsDigit(S.Peek()) {
 		S.Advance()
 	}
 
-	if S.peek() == '.' && S.isDigit(S.peekNext()) {
+	if S.Peek() == '.' && S.IsDigit(S.PeekNext()) {
 		S.Advance()
 
-		for S.isDigit(S.peek()) {
+		for S.IsDigit(S.Peek()) {
 			S.Advance()
 		}
 	}
 
 	value, err := strconv.ParseFloat(S.source[S.start:S.current], 32)
 	if err != nil {
-		Error(S.line, "Cannot parse to number")
+		Error(S.line, "Cannot parse to Number")
 	}
 
 	S.AddToken(NUMBER, value)
 }
 
-func (S *Scanner) string() {
-	for S.peek() != '"' && S.isAtEnd() == false {
-		if S.peek() == '\n' {
+func (S *Scanner) String() {
+	for S.Peek() != '"' && S.IsAtEnd() == false {
+		if S.Peek() == '\n' {
 			S.line++
 		}
 		S.Advance()
 	}
 
-	if S.isAtEnd() {
-		Error(S.line, "Unterminated string")
+	if S.IsAtEnd() {
+		Error(S.line, "Unterminated String")
 		return
 	}
 
@@ -142,8 +142,8 @@ func (S *Scanner) string() {
 	S.AddToken(STRING, value)
 }
 
-func (S *Scanner) match(expected byte) bool {
-	if S.isAtEnd() {
+func (S *Scanner) Match(expected byte) bool {
+	if S.IsAtEnd() {
 		return false
 	}
 	if S.source[S.current] != expected {
@@ -154,21 +154,21 @@ func (S *Scanner) match(expected byte) bool {
 	return true
 }
 
-func (S *Scanner) peek() byte {
-	if S.isAtEnd() {
+func (S *Scanner) Peek() byte {
+	if S.IsAtEnd() {
 		return 0
 	}
 	return S.source[S.current]
 }
 
-func (S *Scanner) peekNext() byte {
+func (S *Scanner) PeekNext() byte {
 	if S.current+1 > len(S.source) {
 		return 0
 	}
 	return S.source[S.current+1]
 }
 
-func (S *Scanner) isDigit(c byte) bool {
+func (S *Scanner) IsDigit(c byte) bool {
 	return c >= 48 && c <= 57
 }
 
@@ -182,7 +182,7 @@ func (S *Scanner) AddToken(t_type TokenType, literal any) {
 	S.tokens = append(S.tokens, *CreateToken(t_type, text, literal, S.line))
 }
 
-func (S *Scanner) isAtEnd() bool {
+func (S *Scanner) IsAtEnd() bool {
 	res := S.current >= len(S.source)
 	return res
 }
