@@ -26,6 +26,8 @@ func runPrompt() error {
 		if err != nil {
 			return err
 		}
+
+		hadError = false
 	}
 
 	fmt.Println("Thank you bye!")

@@ -22,5 +22,9 @@ func runFile(src string) error {
 		return err
 	}
 
+    if hadError {
+        os.Exit(1)
+    }
+
 	return nil
 }

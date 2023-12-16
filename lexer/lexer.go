@@ -4,6 +4,8 @@ import (
 	"os"
 )
 
+var hadError = false
+
 func Lexer() {
 	args := os.Args
 
