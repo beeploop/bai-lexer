@@ -51,9 +51,45 @@ func (S *Scanner) scanToken() {
 		S.AddToken(SEMICOLON, nil)
 	case '*':
 		S.AddToken(STAR, nil)
+	case '!':
+		if S.match('=') {
+			S.AddToken(BANG_EQUAL, nil)
+		} else {
+			S.AddToken(BANG, nil)
+		}
+	case '=':
+		if S.match('=') {
+			S.AddToken(EQUAL_EQUAL, nil)
+		} else {
+			S.AddToken(EQUAL, nil)
+		}
+	case '<':
+		if S.match('=') {
+			S.AddToken(LESS_EQUAL, nil)
+		} else {
+			S.AddToken(LESS, nil)
+		}
+	case '>':
+		if S.match('=') {
+			S.AddToken(GREATER_EQUAL, nil)
+		} else {
+			S.AddToken(GREATER, nil)
+		}
 	default:
-        Error(S.line, "Unexpected character.")
+		Error(S.line, "Unexpected character.")
 	}
+}
+
+func (S *Scanner) match(expected byte) bool {
+	if S.isAtEnd() {
+		return false
+	}
+	if S.source[S.current] != expected {
+		return false
+	}
+
+	S.current++
+	return true
 }
 
 func (S *Scanner) Advance() byte {
