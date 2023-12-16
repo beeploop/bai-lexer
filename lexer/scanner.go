@@ -94,12 +94,22 @@ func (S *Scanner) ScanToken() {
 	case '\n':
 		S.line++
 	default:
-		if S.IsDigit(c) == true {
+		if S.IsDigit(c) {
 			S.Number()
+		} else if S.IsAlpha(c) {
+			S.Identifier()
 		} else {
 			Error(S.line, "Unexpected character.")
 		}
 	}
+}
+
+func (S *Scanner) Identifier() {
+	for S.IsAlphaNumber(S.Peek()) {
+		S.Advance()
+	}
+
+	S.AddToken(IDETIFIER, nil)
 }
 
 func (S *Scanner) Number() {
@@ -166,6 +176,16 @@ func (S *Scanner) PeekNext() byte {
 		return 0
 	}
 	return S.source[S.current+1]
+}
+
+func (S *Scanner) IsAlpha(c byte) bool {
+	return (c >= 97 && c <= 122) ||
+		(c >= 65 && c <= 90) ||
+		(c == 95)
+}
+
+func (S *Scanner) IsAlphaNumber(c byte) bool {
+	return S.IsAlpha(c) || S.IsDigit(c)
 }
 
 func (S *Scanner) IsDigit(c byte) bool {
