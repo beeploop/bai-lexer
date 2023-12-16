@@ -84,6 +84,11 @@ func (S *Scanner) scanToken() {
 		} else {
 			S.AddToken(SLASH, nil)
 		}
+	case ' ':
+	case '\r':
+	case '\t':
+	case '\n':
+		S.line++
 	default:
 		Error(S.line, "Unexpected character.")
 	}
