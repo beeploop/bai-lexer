@@ -1,7 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"os"
+)
 
 func main() {
-    fmt.Println("hello world")
+	args := os.Args
+
+	if len(args) < 2 {
+		runPrompt()
+	} else {
+		runFile(args[1])
+	}
 }
