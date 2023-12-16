@@ -1,6 +1,10 @@
 package lexer
 
-import "strconv"
+import (
+	"strconv"
+)
+
+var keywords map[string]TokenType
 
 type Scanner struct {
 	source  string
@@ -11,6 +15,8 @@ type Scanner struct {
 }
 
 func CreateScanner(source string) *Scanner {
+	keywords = Keywords()
+
 	return &Scanner{
 		source:  source,
 		start:   0,
@@ -109,7 +115,13 @@ func (S *Scanner) Identifier() {
 		S.Advance()
 	}
 
-	S.AddToken(IDETIFIER, nil)
+	text := S.source[S.start:S.current]
+	t_type := keywords[text]
+	if t_type == "" {
+		t_type = IDETIFIER
+	}
+
+	S.AddToken(t_type, nil)
 }
 
 func (S *Scanner) Number() {
