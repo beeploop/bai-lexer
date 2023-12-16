@@ -1,5 +1,7 @@
 package lexer
 
+import "strconv"
+
 type Scanner struct {
 	source  string
 	tokens  []Token
@@ -92,8 +94,33 @@ func (S *Scanner) scanToken() {
 	case '\n':
 		S.line++
 	default:
-		Error(S.line, "Unexpected character.")
+		if S.isDigit(c) == true {
+			S.number()
+		} else {
+			Error(S.line, "Unexpected character.")
+		}
 	}
+}
+
+func (S *Scanner) number() {
+	for S.isDigit(S.peek()) {
+		S.Advance()
+	}
+
+	if S.peek() == '.' && S.isDigit(S.peekNext()) {
+		S.Advance()
+
+		for S.isDigit(S.peek()) {
+			S.Advance()
+		}
+	}
+
+	value, err := strconv.ParseFloat(S.source[S.start:S.current], 32)
+	if err != nil {
+		Error(S.line, "Cannot parse to number")
+	}
+
+	S.AddToken(NUMBER, value)
 }
 
 func (S *Scanner) string() {
@@ -132,6 +159,17 @@ func (S *Scanner) peek() byte {
 		return 0
 	}
 	return S.source[S.current]
+}
+
+func (S *Scanner) peekNext() byte {
+	if S.current+1 > len(S.source) {
+		return 0
+	}
+	return S.source[S.current+1]
+}
+
+func (S *Scanner) isDigit(c byte) bool {
+	return c >= 48 && c <= 57
 }
 
 func (S *Scanner) Advance() byte {
