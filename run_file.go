@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"os"
 )
@@ -18,7 +17,10 @@ func runFile(src string) error {
 		return err
 	}
 
-	fmt.Println(string(bytes))
+	err = run(bytes)
+	if err != nil {
+		return err
+	}
 
 	return nil
 }

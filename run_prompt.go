@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func runPrompt() {
+func runPrompt() error {
 	fmt.Println("=== welcome to Dui REPL ===")
 	reader := bufio.NewReader(os.Stdin)
 
@@ -21,7 +21,13 @@ func runPrompt() {
 		if string(line) == "exit" {
 			break
 		}
+
+        err = run(line)
+        if err != nil {
+            return err
+        }
 	}
 
 	fmt.Println("Thank you bye!")
+    return nil
 }
