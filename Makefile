@@ -7,7 +7,7 @@ run: build
 	@./dui-interpreter
 
 run-input: build
-	@./dui-interpreter input.dui
+	@./dui-interpreter input.pri
 
 clean:
 	@rm dui-interpreter
