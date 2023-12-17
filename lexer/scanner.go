@@ -207,7 +207,10 @@ func (S *Scanner) IsAlphaNumber(c byte) bool {
 }
 
 func (S *Scanner) IsDigit(c byte) bool {
-	return c >= 48 && c <= 57
+	var zero byte = 48
+	var nine byte = 57
+
+	return c >= zero && c <= nine
 }
 
 func (S *Scanner) Advance() byte {
