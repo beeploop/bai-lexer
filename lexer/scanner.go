@@ -191,9 +191,15 @@ func (S *Scanner) PeekNext() byte {
 }
 
 func (S *Scanner) IsAlpha(c byte) bool {
-	return (c >= 97 && c <= 122) ||
-		(c >= 65 && c <= 90) ||
-		(c == 95)
+	var a byte = 97
+	var z byte = 122
+	var A byte = 65
+	var Z byte = 90
+	var underscore byte = 95
+
+	return (c >= a && c <= z) ||
+		(c >= A && c <= Z) ||
+		(c == underscore)
 }
 
 func (S *Scanner) IsAlphaNumber(c byte) bool {
