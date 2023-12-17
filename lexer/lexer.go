@@ -1,7 +1,9 @@
 package lexer
 
 import (
+	"log"
 	"os"
+	"path/filepath"
 )
 
 var hadError = false
@@ -12,6 +14,11 @@ func Lexer() {
 	if len(args) < 2 {
 		runPrompt()
 	} else {
+		ext := filepath.Ext(args[1])
+		if ext != ".pri" {
+			log.Fatal("Invalid file")
+		}
+
 		runFile(args[1])
 	}
 }
