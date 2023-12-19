@@ -33,7 +33,6 @@ const (
 
 	// keywords
 	AND    TokenType = "AND"
-	CLASS  TokenType = "CLASS"
 	ELSE   TokenType = "ELSE"
 	FALSE  TokenType = "FALSE"
 	FUN    TokenType = "FUN"
@@ -43,8 +42,6 @@ const (
 	OR     TokenType = "OR"
 	PRINT  TokenType = "PRINT"
 	RETURN TokenType = "RETURN"
-	SUPER  TokenType = "SUPER"
-	THIS   TokenType = "THIS"
 	TRUE   TokenType = "TRUE"
 	VAR    TokenType = "VAR"
 	WHILE  TokenType = "WHILE"
