@@ -20,9 +20,18 @@ func CreateParser(tokens []types.Token) *Parser {
 
 func (P *Parser) Parse() Expression {
 
-	for _, token := range P.tokens {
-		fmt.Println("token: ", token)
+	for P.isAtEnd() == false {
+		fmt.Println(P.tokens[P.current])
+		P.current++
 	}
 
 	return nil
+}
+
+func (P *Parser) isAtEnd() bool {
+	if P.tokens[P.current].T_type == types.EOF {
+		return true
+	}
+
+	return false
 }
