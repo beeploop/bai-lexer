@@ -1,10 +1,10 @@
 package parser
 
 type Grouping struct {
-	expression Expression
+	expression Expr
 }
 
-func CreateGrouping(expression Expression) *Grouping {
+func CreateGrouping(expression Expr) *Grouping {
 	return &Grouping{
 		expression: expression,
 	}

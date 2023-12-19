@@ -4,10 +4,10 @@ import "github.com/BeepLoop/bai-interpreter/types"
 
 type Unary struct {
 	operator types.Token
-	right    Expression
+	right    Expr
 }
 
-func CreateUnary(operator types.Token, right Expression) *Unary {
+func CreateUnary(operator types.Token, right Expr) *Unary {
 	return &Unary{
 		operator: operator,
 		right:    right,

@@ -3,12 +3,12 @@ package parser
 import "github.com/BeepLoop/bai-interpreter/types"
 
 type Binary struct {
-	left     Expression
+	left     Expr
 	operator types.Token
-	right    Expression
+	right    Expr
 }
 
-func CreateBinary(left Expression, operator types.Token, right Expression) *Binary {
+func CreateBinary(left Expr, operator types.Token, right Expr) *Binary {
 	return &Binary{
 		left:     left,
 		operator: operator,

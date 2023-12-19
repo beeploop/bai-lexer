@@ -1,8 +1,6 @@
 package parser
 
 import (
-	"fmt"
-
 	"github.com/BeepLoop/bai-interpreter/types"
 )
 
@@ -18,10 +16,11 @@ func CreateParser(tokens []types.Token) *Parser {
 	}
 }
 
-func (P *Parser) Parse() Expression {
+func (P *Parser) Parse() Expr {
 
 	for P.isAtEnd() == false {
-		fmt.Println(P.tokens[P.current])
+        token := P.tokens[P.current]
+        Expression(token)
 		P.current++
 	}
 

@@ -1,3 +1,16 @@
 package parser
 
-type Expression interface{}
+import (
+	"fmt"
+
+	"github.com/BeepLoop/bai-interpreter/types"
+)
+
+type Expr interface{}
+
+func Expression(token types.Token) Expr {
+
+	fmt.Println(token)
+
+	return nil
+}
