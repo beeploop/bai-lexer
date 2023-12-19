@@ -13,3 +13,8 @@ func CreateUnary(operator types.Token, right Expr) *Unary {
 		right:    right,
 	}
 }
+
+func CallUnary() Expr {
+
+    return CallPrimary()
+}

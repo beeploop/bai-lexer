@@ -12,5 +12,7 @@ func Expression(token types.Token) Expr {
 
 	fmt.Println(token)
 
+	_ = CallEquality()
+
 	return nil
 }
