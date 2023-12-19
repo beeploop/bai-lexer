@@ -116,6 +116,10 @@ func (S *Scanner) Identifier() {
 	}
 
 	text := S.source[S.start:S.current]
+	if text == "kay" {
+		S.AddToken(EQUAL, nil)
+        return
+	}
 	t_type := keywords[text]
 	if t_type == "" {
 		t_type = IDETIFIER
