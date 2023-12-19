@@ -1,14 +1,16 @@
-package lexer
+package parser
+
+import "github.com/BeepLoop/bai-interpreter/types"
 
 type Expression interface{}
 
 type Binary struct {
 	left     Expression
-	operator Token
+	operator types.Token
 	right    Expression
 }
 
-func CreateBinary(left Expression, operator Token, right Expression) *Binary {
+func CreateBinary(left Expression, operator types.Token, right Expression) *Binary {
 	return &Binary{
 		left:     left,
 		operator: operator,
@@ -37,14 +39,13 @@ func CreateLiteral(value any) *Literal {
 }
 
 type Unary struct {
-	operator Token
+	operator types.Token
 	right    Expression
 }
 
-func CreateUnary(operator Token, right Expression) *Unary {
+func CreateUnary(operator types.Token, right Expression) *Unary {
 	return &Unary{
 		operator: operator,
 		right:    right,
 	}
 }
-

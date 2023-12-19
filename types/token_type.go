@@ -1,4 +1,4 @@
-package lexer
+package types
 
 type TokenType string
 

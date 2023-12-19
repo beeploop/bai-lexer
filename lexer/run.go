@@ -1,14 +1,14 @@
 package lexer
 
-import "fmt"
+import (
+	"github.com/BeepLoop/bai-interpreter/parser"
+)
 
 func run(src []byte) error {
 	scanner := CreateScanner(string(src))
 	tokens := scanner.ScanTokens()
 
-	for _, token := range tokens {
-        fmt.Println("token: ", token)
-	}
+	parser.Parser(tokens)
 
 	return nil
 }

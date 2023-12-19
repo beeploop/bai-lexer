@@ -2,13 +2,15 @@ package lexer
 
 import (
 	"strconv"
+
+	"github.com/BeepLoop/bai-interpreter/types"
 )
 
-var keywords map[string]TokenType
+var keywords map[string]types.TokenType
 
 type Scanner struct {
 	source  string
-	tokens  []Token
+	tokens  []types.Token
 	start   int
 	current int
 	line    int
@@ -25,13 +27,13 @@ func CreateScanner(source string) *Scanner {
 	}
 }
 
-func (S *Scanner) ScanTokens() []Token {
+func (S *Scanner) ScanTokens() []types.Token {
 	for S.IsAtEnd() == false {
 		S.start = S.current
 		S.ScanToken()
 	}
 
-	S.tokens = append(S.tokens, *CreateToken(EOF, "", nil, S.line))
+	S.tokens = append(S.tokens, *types.CreateToken(types.EOF, "", nil, S.line))
 	return S.tokens
 }
 
@@ -40,48 +42,48 @@ func (S *Scanner) ScanToken() {
 
 	switch c {
 	case '(':
-		S.AddToken(LEFT_PAREN, nil)
+		S.AddToken(types.LEFT_PAREN, nil)
 	case ')':
-		S.AddToken(RIGHT_PAREN, nil)
+		S.AddToken(types.RIGHT_PAREN, nil)
 	case '{':
-		S.AddToken(LEFT_BRACE, nil)
+		S.AddToken(types.LEFT_BRACE, nil)
 	case '}':
-		S.AddToken(RIGHT_BRACE, nil)
+		S.AddToken(types.RIGHT_BRACE, nil)
 	case ',':
-		S.AddToken(COMMA, nil)
+		S.AddToken(types.COMMA, nil)
 	case '.':
-		S.AddToken(DOT, nil)
+		S.AddToken(types.DOT, nil)
 	case '-':
-		S.AddToken(MINUS, nil)
+		S.AddToken(types.MINUS, nil)
 	case '+':
-		S.AddToken(PLUS, nil)
+		S.AddToken(types.PLUS, nil)
 	case ';':
-		S.AddToken(SEMICOLON, nil)
+		S.AddToken(types.SEMICOLON, nil)
 	case '*':
-		S.AddToken(STAR, nil)
+		S.AddToken(types.STAR, nil)
 	case '!':
 		if S.Match('=') {
-			S.AddToken(BANG_EQUAL, nil)
+			S.AddToken(types.BANG_EQUAL, nil)
 		} else {
-			S.AddToken(BANG, nil)
+			S.AddToken(types.BANG, nil)
 		}
 	case '=':
 		if S.Match('=') {
-			S.AddToken(EQUAL_EQUAL, nil)
+			S.AddToken(types.EQUAL_EQUAL, nil)
 		} else {
-			S.AddToken(EQUAL, nil)
+			S.AddToken(types.EQUAL, nil)
 		}
 	case '<':
 		if S.Match('=') {
-			S.AddToken(LESS_EQUAL, nil)
+			S.AddToken(types.LESS_EQUAL, nil)
 		} else {
-			S.AddToken(LESS, nil)
+			S.AddToken(types.LESS, nil)
 		}
 	case '>':
 		if S.Match('=') {
-			S.AddToken(GREATER_EQUAL, nil)
+			S.AddToken(types.GREATER_EQUAL, nil)
 		} else {
-			S.AddToken(GREATER, nil)
+			S.AddToken(types.GREATER, nil)
 		}
 	case '/':
 		if S.Match('/') {
@@ -90,7 +92,7 @@ func (S *Scanner) ScanToken() {
 				S.Advance()
 			}
 		} else {
-			S.AddToken(SLASH, nil)
+			S.AddToken(types.SLASH, nil)
 		}
 	case '"':
 		S.String()
@@ -117,18 +119,18 @@ func (S *Scanner) Identifier() {
 
 	text := S.source[S.start:S.current]
 	if text == "kay" {
-		S.AddToken(EQUAL, nil)
-        return
+		S.AddToken(types.EQUAL, nil)
+		return
 	}
 
-    if text == "parehas" {
-        S.AddToken(EQUAL_EQUAL, nil)
-        return
-    }
+	if text == "parehas" {
+		S.AddToken(types.EQUAL_EQUAL, nil)
+		return
+	}
 
 	t_type := keywords[text]
 	if t_type == "" {
-		t_type = IDETIFIER
+		t_type = types.IDETIFIER
 	}
 
 	S.AddToken(t_type, nil)
@@ -152,7 +154,7 @@ func (S *Scanner) Number() {
 		Error(S.line, "Cannot parse to Number")
 	}
 
-	S.AddToken(NUMBER, value)
+	S.AddToken(types.NUMBER, value)
 }
 
 func (S *Scanner) String() {
@@ -171,7 +173,7 @@ func (S *Scanner) String() {
 	S.Advance()
 
 	value := S.source[S.start+1 : S.current-1]
-	S.AddToken(STRING, value)
+	S.AddToken(types.STRING, value)
 }
 
 func (S *Scanner) Match(expected byte) bool {
@@ -228,9 +230,9 @@ func (S *Scanner) Advance() byte {
 	return S.source[S.current-1]
 }
 
-func (S *Scanner) AddToken(t_type TokenType, literal any) {
+func (S *Scanner) AddToken(t_type types.TokenType, literal any) {
 	text := S.source[S.start:S.current]
-	S.tokens = append(S.tokens, *CreateToken(t_type, text, literal, S.line))
+	S.tokens = append(S.tokens, *types.CreateToken(t_type, text, literal, S.line))
 }
 
 func (S *Scanner) IsAtEnd() bool {
