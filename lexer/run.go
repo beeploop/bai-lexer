@@ -8,7 +8,8 @@ func run(src []byte) error {
 	scanner := CreateScanner(string(src))
 	tokens := scanner.ScanTokens()
 
-	parser.Parser(tokens)
+	myparser := parser.CreateParser()
+	myparser.Parse(tokens)
 
 	return nil
 }
