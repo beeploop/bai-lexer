@@ -117,12 +117,14 @@ func (S *Scanner) Identifier() {
 		S.Advance()
 	}
 
+    // other term sa = operator
 	text := S.source[S.start:S.current]
 	if text == "kay" {
 		S.AddToken(types.EQUAL, nil)
 		return
 	}
 
+    // other term sa == operator
 	if text == "parehas" {
 		S.AddToken(types.EQUAL_EQUAL, nil)
 		return

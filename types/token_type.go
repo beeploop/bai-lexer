@@ -34,6 +34,7 @@ const (
 	// keywords
 	AND    TokenType = "AND"
 	ELSE   TokenType = "ELSE"
+	ELIF   TokenType = "ELIF"
 	FALSE  TokenType = "FALSE"
 	FUN    TokenType = "FUN"
 	FOR    TokenType = "FOR"
