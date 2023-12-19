@@ -11,14 +11,16 @@ type Parser struct {
 	tokens  []types.Token
 }
 
-func CreateParser() *Parser {
+func CreateParser(tokens []types.Token) *Parser {
 	return &Parser{
 		current: 0,
+		tokens:  tokens,
 	}
 }
 
-func (P *Parser) Parse(tokens []types.Token) Expression {
-	for _, token := range tokens {
+func (P *Parser) Parse() Expression {
+
+	for _, token := range P.tokens {
 		fmt.Println("token: ", token)
 	}
 
