@@ -1,13 +1,13 @@
 default: build
 
 build:
-	@go build
+	@go build -o bai
 
 run: build
-	@./dui-interpreter
+	@./bai
 
 run-input: build
-	@./dui-interpreter input.pri
+	@./bai input.bai
 
 clean:
-	@rm dui-interpreter
+	@rm bai*

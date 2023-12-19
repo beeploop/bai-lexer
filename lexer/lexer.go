@@ -15,7 +15,7 @@ func Lexer() {
 		runPrompt()
 	} else {
 		ext := filepath.Ext(args[1])
-		if ext != ".pri" {
+		if ext != ".bai" {
 			log.Fatal("Invalid file")
 		}
 

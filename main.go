@@ -1,6 +1,6 @@
 package main
 
-import "github.com/BeepLoop/dui-interpreter/lexer"
+import "github.com/BeepLoop/bai-interpreter/lexer"
 
 func main() {
 	lexer.Lexer()
