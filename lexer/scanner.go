@@ -120,6 +120,12 @@ func (S *Scanner) Identifier() {
 		S.AddToken(EQUAL, nil)
         return
 	}
+
+    if text == "parehas" {
+        S.AddToken(EQUAL_EQUAL, nil)
+        return
+    }
+
 	t_type := keywords[text]
 	if t_type == "" {
 		t_type = IDETIFIER
