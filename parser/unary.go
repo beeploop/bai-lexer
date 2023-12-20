@@ -9,8 +9,8 @@ type Unary struct {
 	Right    Expr
 }
 
-func CreateUnary(operator types.Token, right Expr) *Unary {
-	return &Unary{
+func CreateUnary(operator types.Token, right Expr) Unary {
+	return Unary{
 		Operator: operator,
 		Right:    right,
 	}
