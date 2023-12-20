@@ -53,6 +53,14 @@ func previous() types.Token {
 	return tokenList[curr-1]
 }
 
+func consume(token types.TokenType, message string) any {
+	if checkType(token) {
+		return advance()
+	}
+
+	return nil
+}
+
 func extractLiteralValue(expr Expr) float64 {
 	val := reflect.ValueOf(expr).Elem()
 	v := val.FieldByName("Value").Interface().(float64)

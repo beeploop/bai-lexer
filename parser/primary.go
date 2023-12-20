@@ -24,6 +24,11 @@ func CallPrimary() Expr {
 		return CreateLiteral(token)
 	}
 
-	// panic("Expect expression.")
+	if match(types.LEFT_PAREN) {
+		expr := Expression()
+		consume(types.RIGHT_PAREN, "Expected ')' after expression.")
+		return CreateGrouping(expr)
+	}
+
 	return errors.New("Expected expression")
 }
