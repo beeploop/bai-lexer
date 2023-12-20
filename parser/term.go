@@ -1,7 +1,18 @@
 package parser
 
-func CallTerm() Expr {
-    _ = CallFactor()
+import (
+	"github.com/BeepLoop/bai-interpreter/types"
+)
 
-    return nil
+func CallTerm() Expr {
+	expr := CallFactor()
+
+	if match(types.MINUS, types.PLUS) {
+		operator := previous()
+		right := CallFactor()
+
+		return CreateBinary(expr, operator, right)
+	}
+
+	return expr
 }

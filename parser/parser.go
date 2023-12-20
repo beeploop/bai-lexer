@@ -4,12 +4,18 @@ import (
 	"github.com/BeepLoop/bai-interpreter/types"
 )
 
+var curr int
+var tokenList []types.Token
+
 type Parser struct {
 	current int
 	tokens  []types.Token
 }
 
 func CreateParser(tokens []types.Token) *Parser {
+	curr = 0
+	tokenList = tokens
+
 	return &Parser{
 		current: 0,
 		tokens:  tokens,
@@ -19,9 +25,7 @@ func CreateParser(tokens []types.Token) *Parser {
 func (P *Parser) Parse() Expr {
 
 	for P.isAtEnd() == false {
-        token := P.tokens[P.current]
-        Expression(token)
-		P.current++
+        return Expression()
 	}
 
 	return nil

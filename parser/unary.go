@@ -1,20 +1,29 @@
 package parser
 
-import "github.com/BeepLoop/bai-interpreter/types"
+import (
+	"github.com/BeepLoop/bai-interpreter/types"
+)
 
 type Unary struct {
-	operator types.Token
-	right    Expr
+	Operator types.Token
+	Right    Expr
 }
 
 func CreateUnary(operator types.Token, right Expr) *Unary {
 	return &Unary{
-		operator: operator,
-		right:    right,
+		Operator: operator,
+		Right:    right,
 	}
 }
 
 func CallUnary() Expr {
 
-    return CallPrimary()
+	if match(types.BANG, types.MINUS) {
+		operator := previous()
+		right := CallUnary()
+
+		return CreateUnary(operator, right)
+	}
+
+	return CallPrimary()
 }

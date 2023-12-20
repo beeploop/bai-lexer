@@ -1,6 +1,8 @@
 package lexer
 
 import (
+	"fmt"
+
 	"github.com/BeepLoop/bai-interpreter/parser"
 )
 
@@ -9,7 +11,9 @@ func run(src []byte) error {
 	tokens := scanner.ScanTokens()
 
 	myparser := parser.CreateParser(tokens)
-	myparser.Parse()
+	expr := myparser.Parse()
+
+    fmt.Println("parsed: ", expr)
 
 	return nil
 }

@@ -1,7 +1,18 @@
 package parser
 
-func CallFactor() Expr {
-    _ = CallUnary()
+import (
+	"github.com/BeepLoop/bai-interpreter/types"
+)
 
-    return nil
+func CallFactor() Expr {
+	expr := CallUnary()
+
+	if match(types.SLASH, types.STAR) {
+		operator := previous()
+		right := CallUnary()
+
+		return CreateBinary(expr, operator, right)
+	}
+
+	return expr
 }

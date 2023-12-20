@@ -1,11 +1,11 @@
 package parser
 
 type Literal struct {
-	value any
+	Value any
 }
 
-func CreateLiteral(value any) *Literal {
-	return &Literal{
-		value: value,
+func CreateLiteral(value any) Literal {
+	return Literal{
+		Value: value,
 	}
 }
