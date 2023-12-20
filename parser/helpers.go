@@ -53,12 +53,12 @@ func previous() types.Token {
 	return tokenList[curr-1]
 }
 
-func consume(token types.TokenType, message string) any {
+func consume(token types.TokenType, message string) types.Token {
 	if checkType(token) {
 		return advance()
 	}
 
-	return nil
+	panic(message)
 }
 
 func extractLiteralValue(expr Expr) float64 {
