@@ -16,7 +16,7 @@ run-input: build
 	@./bai input.bai
 
 test:
-	@go test -v ./...
+	@grc go test -v -cover ./...
 
 clean:
 	@rm bai*
