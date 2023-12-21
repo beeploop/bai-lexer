@@ -22,7 +22,7 @@ func runPrompt() error {
 			break
 		}
 
-		err = run(line)
+		err = runLexer(line)
 		if err != nil {
 			return err
 		}

@@ -17,7 +17,7 @@ func runFile(src string) error {
 		return err
 	}
 
-	err = run(bytes)
+	err = runLexer(bytes)
 	if err != nil {
 		return err
 	}

@@ -6,7 +6,7 @@ import (
 	"github.com/BeepLoop/bai-interpreter/parser"
 )
 
-func run(src []byte) error {
+func runLexer(src []byte) error {
 	scanner := CreateScanner(string(src))
 	tokens := scanner.ScanTokens()
 
