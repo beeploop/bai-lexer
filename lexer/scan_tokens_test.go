@@ -47,13 +47,16 @@ func TestScanTokens(t *testing.T) {
 		},
 	}
 
-	for _, test := range tests {
+	for i, test := range tests {
 		scanner := CreateScanner(test.source)
 		tokens := scanner.ScanTokens()
 
+		iter := i + 1
 		if reflect.DeepEqual(tokens, test.expected) == false {
-			t.Logf("FAILED, Expected: %v, Got %v\n", test.expected, tokens)
+            t.Logf("test %d - FAILED \nExpected: \n\t%v, \nGot: \n\t%v\n", iter, test.expected, tokens)
 			t.Fail()
+		} else {
+            t.Logf("test %d - PASSED\n", iter)
 		}
 	}
 }
