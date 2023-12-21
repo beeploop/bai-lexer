@@ -18,7 +18,7 @@ func match(tokens ...types.TokenType) bool {
 }
 
 func isAtEnd() bool {
-	if tokenList[curr].T_type == types.EOF {
+	if tokenList[curr].Type == types.EOF {
 		return true
 	}
 
@@ -30,7 +30,7 @@ func checkType(token types.TokenType) bool {
 		return false
 	}
 
-	return peek().T_type == token
+	return peek().Type == token
 }
 
 func peek() types.Token {

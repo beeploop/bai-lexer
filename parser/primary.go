@@ -20,7 +20,7 @@ func CallPrimary() Expr {
 	}
 
 	if match(types.NUMBER, types.STRING) {
-		token := previous().T_literal
+		token := previous().Literal
 		return CreateLiteral(token)
 	}
 

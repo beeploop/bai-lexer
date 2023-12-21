@@ -32,7 +32,7 @@ func (P *Parser) Parse() Expr {
 }
 
 func (P *Parser) isAtEnd() bool {
-	if P.tokens[P.current].T_type == types.EOF {
+	if P.tokens[P.current].Type == types.EOF {
 		return true
 	}
 
