@@ -15,5 +15,8 @@ run: build
 run-input: build
 	@./bai input.bai
 
+test:
+	@go test -v ./...
+
 clean:
 	@rm bai*
