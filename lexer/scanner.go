@@ -95,7 +95,7 @@ func (S *Scanner) ScanToken() {
 			S.AddToken(types.SLASH, nil)
 		}
 	case '"':
-		S.String()
+		S.processString()
 	case ' ':
 	case '\r':
 	case '\t':
@@ -103,28 +103,28 @@ func (S *Scanner) ScanToken() {
 		S.line++
 	default:
 		if S.IsDigit(c) {
-			S.Number()
+			S.processNumber()
 		} else if S.IsAlpha(c) {
-			S.Identifier()
+			S.processIdentifier()
 		} else {
 			Error(S.line, "Unexpected character.")
 		}
 	}
 }
 
-func (S *Scanner) Identifier() {
+func (S *Scanner) processIdentifier() {
 	for S.IsAlphaNumber(S.Peek()) {
 		S.Advance()
 	}
 
-    // other term sa = operator
+	// other term sa = operator
 	text := S.source[S.start:S.current]
 	if text == "kay" {
 		S.AddToken(types.EQUAL, nil)
 		return
 	}
 
-    // other term sa == operator
+	// other term sa == operator
 	if text == "parehas" {
 		S.AddToken(types.EQUAL_EQUAL, nil)
 		return
@@ -138,7 +138,7 @@ func (S *Scanner) Identifier() {
 	S.AddToken(t_type, nil)
 }
 
-func (S *Scanner) Number() {
+func (S *Scanner) processNumber() {
 	for S.IsDigit(S.Peek()) {
 		S.Advance()
 	}
@@ -159,7 +159,7 @@ func (S *Scanner) Number() {
 	S.AddToken(types.NUMBER, value)
 }
 
-func (S *Scanner) String() {
+func (S *Scanner) processString() {
 	for S.Peek() != '"' && S.IsAtEnd() == false {
 		if S.Peek() == '\n' {
 			S.line++
@@ -168,7 +168,7 @@ func (S *Scanner) String() {
 	}
 
 	if S.IsAtEnd() {
-		Error(S.line, "Unterminated String")
+		Error(S.line, "Unterminated processString")
 		return
 	}
 
