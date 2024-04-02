@@ -16,7 +16,9 @@ run-input: build
 	@./bai input.bai
 
 test:
-	@grc go test -v -cover -failfast ./...
+	@grc go test -v -cover -failfast ./test/...
 
 clean:
 	@rm bai*
+
+.PHONY : build build-linux build-win run run-input test clean

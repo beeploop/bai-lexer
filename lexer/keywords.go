@@ -1,20 +1,29 @@
 package lexer
 
-func Keywords() map[string]TokenType {
-	keywords := make(map[string]TokenType)
-	keywords["tapos"] = AND
-	keywords["ay"] = ELSE
-	keywords["atik"] = FALSE
-	keywords["for"] = FOR
-	keywords["fun"] = FUN
-	keywords["ug"] = IF
-	keywords["wala"] = NIL
-	keywords["or"] = OR
-	keywords["print"] = PRINT
-	keywords["return"] = RETURN
-	keywords["tinood"] = TRUE
-	keywords["ang"] = VAR
-	keywords["samtang"] = WHILE
+import "github.com/BeepLoop/bai-lexer/types"
+
+func Keywords() map[string]types.TokenType {
+	keywords := make(map[string]types.TokenType)
+	keywords["ang"] = types.VAR
+
+	keywords["tapos"] = types.AND
+	keywords["or"] = types.OR
+
+	keywords["ug"] = types.IF
+	keywords["ay-ug"] = types.ELIF
+	keywords["edi"] = types.ELSE
+
+	keywords["tinood"] = types.TRUE
+	keywords["atik"] = types.FALSE
+
+	keywords["kada"] = types.FOR
+	keywords["samtang"] = types.WHILE
+
+	keywords["katikaran"] = types.FUN
+	keywords["payts"] = types.RETURN
+	keywords["pakita"] = types.PRINT
+
+	keywords["wala"] = types.NIL
 
 	return keywords
 }

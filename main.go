@@ -2,28 +2,23 @@ package main
 
 import (
 	"fmt"
-	"os"
 
-	"github.com/BeepLoop/bai-interpreter/lexer"
+	"github.com/BeepLoop/bai-lexer/lexer"
+	"github.com/BeepLoop/bai-lexer/scanner"
 )
 
-var version = "0.1.0"
-
 func main() {
-	args := os.Args
-
-	if len(args) > 1 {
-
-		switch args[1] {
-		case "-v":
-			fmt.Println(version)
-			return
-
-		case "--version":
-			fmt.Println(version)
-			return
-		}
+	bytes, err := lexer.ReadBytes("input.bai")
+	if err != nil {
+		panic(err)
 	}
 
-	lexer.Lexer()
+	tokens, err := lexer.Tokenize(bytes, scanner.NewScanner())
+	if err != nil {
+		panic(err)
+	}
+
+	for _, token := range tokens {
+		fmt.Println(token)
+	}
 }
