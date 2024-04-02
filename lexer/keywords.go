@@ -1,6 +1,6 @@
 package lexer
 
-import "github.com/BeepLoop/bai-interpreter/types"
+import "github.com/BeepLoop/bai-lexer/types"
 
 func Keywords() map[string]types.TokenType {
 	keywords := make(map[string]types.TokenType)
